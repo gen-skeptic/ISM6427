@@ -210,10 +210,14 @@ h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600
 /* Daily */
 .daily { display: grid; gap: 6px; }
 .day {
-  display: grid; grid-template-columns: 70px 32px 1fr auto; align-items: center; gap: 12px;
+  display: grid; grid-template-columns: 70px 32px 1fr 1.4fr 90px; align-items: center; gap: 12px;
   padding: 8px 10px; border-radius: 12px; font-size: .9rem;
 }
-.day:nth-child(odd) { background: var(--tile); }
+.day:nth-child(even) { background: var(--tile); }
+.day.labels { color: var(--blue); font-size: .7rem; font-weight: 600; padding-top: 0; padding-bottom: 2px; }
+.day .range { text-align: right; }
+.day .dwind { color: var(--teal); font-size: .8rem; white-space: nowrap; }
+.day .dwind small { color: var(--subtext); font-size: .7rem; }
 .day .i { font-size: 1.3rem; text-align: center; }
 .day .rain { color: var(--sapphire); font-size: .8rem; }
 .day .range b { color: var(--peach); }
@@ -227,7 +231,7 @@ footer { text-align: center; font-size: .75rem; }
 @media (max-width: 520px) {
   .stats { grid-template-columns: repeat(2, 1fr); }
   .temp { font-size: 3rem; }
-  .day { grid-template-columns: 52px 28px 1fr auto; gap: 8px; }
+  .day { grid-template-columns: 44px 26px 40px 1fr 64px; gap: 6px; font-size: .8rem; }
 }
 
 /* Alerts */

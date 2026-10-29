@@ -52,7 +52,8 @@ async function loadWeather(place) {
     hourly: "temperature_2m,weather_code,uv_index,precipitation_probability,is_day,visibility," +
       "wind_speed_10m,wind_direction_10m",
     minutely_15: "precipitation",
-    daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,sunrise,sunset,daylight_duration",
+    daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,sunrise,sunset,daylight_duration," +
+      "wind_speed_10m_max,wind_direction_10m_dominant",
     temperature_unit: "fahrenheit",
     wind_speed_unit: "mph",
     precipitation_unit: "inch",
@@ -126,11 +127,16 @@ function render(d) {
   const mins = Math.round(d.daily.daylight_duration[0] / 60);
   $("daylight").textContent = `${Math.floor(mins / 60)}h ${mins % 60}m`;
 
-  $("daily").innerHTML = d.daily.time.map((t, i) => {
+  const dailyHeaders = `<div class="day labels"><span>Day</span><span>Sky</span><span>Rain</span>
+    <span>Wind mph</span><span class="range">Hi / Lo</span></div>`;
+  $("daily").innerHTML = dailyHeaders + d.daily.time.map((t, i) => {
     const day = i === 0 ? "Today" : new Date(`${t}T12:00`).toLocaleDateString("en-US", { weekday: "short" });
     const [dDesc, dIcon] = code(d.daily.weather_code[i]);
+    const dir = d.daily.wind_direction_10m_dominant[i];
     return `<div class="day"><span>${day}</span><span class="i" title="${dDesc}">${dIcon}</span>
-      <span class="rain">${d.daily.precipitation_probability_max[i] ?? 0}% rain</span>
+      <span class="rain">${d.daily.precipitation_probability_max[i] ?? 0}%</span>
+      <span class="dwind"><span class="arrow" style="transform: rotate(${dir}deg)">↓</span>
+        ${Math.round(d.daily.wind_speed_10m_max[i])} <small>${COMPASS[Math.round(dir / 45) % 8]}</small></span>
       <span class="range"><b>${Math.round(d.daily.temperature_2m_max[i])}°</b> <span>${Math.round(d.daily.temperature_2m_min[i])}°</span></span></div>`;
   }).join("");
 }
