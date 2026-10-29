@@ -132,11 +132,11 @@ h1 { font-size: 1.4rem; color: var(--mauve); }
 h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600; }
 
 /* Header: greeting + theme switch */
-.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-@media (max-width: 600px) { .top { flex-wrap: wrap; } }
+/* Header: logos + theme switch on top, greeting underneath */
+.top { display: grid; gap: 14px; }
 .greeting { font-size: 1rem; font-weight: 600; }
 .greeting span { color: var(--mauve); }
-.top-right { display: flex; align-items: center; gap: 8px; }
+.top-right { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
 .repo {
   display: flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; padding: 0; border-radius: 50%;
