@@ -136,8 +136,9 @@ h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600
 .top { display: grid; gap: 18px; }
 .greeting { font-size: 1rem; font-weight: 600; }
 .greeting span { color: var(--mauve); }
-/* Top bar spans the full width: logos and theme switch spread evenly */
-.top-right { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+/* Top bar spans the full width: weather logo on the left, GitHub + theme switch on the right */
+.top-right { display: flex; align-items: center; gap: 12px; }
+.brand { margin-right: auto; }
 .repo {
   display: flex; align-items: center; justify-content: center;
   width: 56px; height: 56px; padding: 0; border-radius: 50%;
