@@ -133,23 +133,34 @@ h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600
 
 /* Header: greeting + theme switch */
 /* Header: logos + theme switch on top, greeting underneath */
-.top { display: grid; gap: 14px; }
+.top { display: grid; gap: 18px; }
 .greeting { font-size: 1rem; font-weight: 600; }
 .greeting span { color: var(--mauve); }
-.top-right { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+/* Top bar spans the full width: logos and theme switch spread evenly */
+.top-right { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .repo {
   display: flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; padding: 0; border-radius: 50%;
+  width: 56px; height: 56px; padding: 0; border-radius: 50%;
   color: var(--text);
 }
-.brand img { display: block; width: 40px; height: 40px; border-radius: 12px; box-shadow: 0 4px 16px var(--shadow); }
+.repo svg { width: 28px; height: 28px; }
+.brand img { display: block; width: 56px; height: 56px; border-radius: 16px; box-shadow: 0 4px 16px var(--shadow); }
 .brand:hover img { outline: 2px solid var(--mauve); outline-offset: 2px; }
 .repo:hover { color: var(--mauve); border-color: var(--mauve); }
-.themes { display: flex; gap: 4px; padding: 4px; }
+.themes { display: flex; gap: 6px; padding: 6px; border-radius: 20px; }
 .themes button {
-  font: inherit; font-size: .8rem; cursor: pointer;
+  font: inherit; font-size: 1rem; cursor: pointer;
   color: var(--subtext); background: none; border: none;
-  padding: 6px 10px; border-radius: 12px;
+  padding: 10px 20px; border-radius: 14px;
+}
+@media (max-width: 520px) {
+  .repo, .brand img { width: 48px; height: 48px; }
+  .repo svg { width: 24px; height: 24px; }
+  .themes button { font-size: .85rem; padding: 8px 12px; }
+}
+@media (max-width: 360px) {
+  .repo, .brand img { width: 42px; height: 42px; }
+  .themes button { font-size: .8rem; padding: 6px 8px; }
 }
 .themes button[aria-pressed="true"] { color: var(--on-accent); background: var(--mauve); font-weight: 600; }
 
