@@ -49,7 +49,8 @@ async function loadWeather(place) {
     longitude: lon,
     current: "temperature_2m,apparent_temperature,relative_humidity_2m,dew_point_2m,weather_code,is_day," +
       "wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,cloud_cover",
-    hourly: "temperature_2m,weather_code,uv_index,precipitation_probability,is_day,visibility",
+    hourly: "temperature_2m,weather_code,uv_index,precipitation_probability,is_day,visibility," +
+      "wind_speed_10m,wind_direction_10m",
     minutely_15: "precipitation",
     daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,sunrise,sunset,daylight_duration",
     temperature_unit: "fahrenheit",
@@ -96,13 +97,19 @@ function render(d) {
 
   // Next 12 hours, starting at the current hour (times are in the location's timezone)
   const start = Math.max(0, d.hourly.time.findIndex((t) => t >= c.time.slice(0, 13)));
-  $("hourly").innerHTML = d.hourly.time.slice(start, start + 12).map((t, i) => {
+  // First column holds the row headers and stays pinned while scrolling
+  const headers = `<div class="hour labels"><span>Time</span><span>Sky</span><span>Temp</span>
+    <span>Rain</span><span>Wind mph</span></div>`;
+  $("hourly").innerHTML = headers + d.hourly.time.slice(start, start + 12).map((t, i) => {
     const h = Number(t.slice(11, 13));
     const label = i === 0 ? "Now" : `${h % 12 || 12}${h < 12 ? "am" : "pm"}`;
+    const dir = d.hourly.wind_direction_10m[start + i];
     return `<div class="hour"><span class="muted">${label}</span>
       <span class="i">${code(d.hourly.weather_code[start + i], d.hourly.is_day[start + i])[1]}</span>
       <b>${Math.round(d.hourly.temperature_2m[start + i])}°</b>
-      <span class="pop">${d.hourly.precipitation_probability[start + i] ?? 0}%</span></div>`;
+      <span class="pop">${d.hourly.precipitation_probability[start + i] ?? 0}%</span>
+      <span class="hwind"><span class="arrow" style="transform: rotate(${dir}deg)">↓</span>
+        ${Math.round(d.hourly.wind_speed_10m[start + i])} <small>${COMPASS[Math.round(dir / 45) % 8]}</small></span></div>`;
   }).join("");
 
   // Visibility comes back in feet with imperial units, meters otherwise

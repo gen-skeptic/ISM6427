@@ -18,6 +18,7 @@
   --on-accent: #11111b;
   --glass: rgba(30, 30, 46, .45);
   --glass-solid: rgba(24, 24, 37, .85);
+  --solid: #181825;
   --tile: rgba(49, 50, 68, .35);
   --input: rgba(49, 50, 68, .5);
   --border: rgba(205, 214, 244, .12);
@@ -48,6 +49,7 @@
   --on-accent: #eff1f5;
   --glass: rgba(239, 241, 245, .55);
   --glass-solid: rgba(239, 241, 245, .92);
+  --solid: #e6e9ef;
   --tile: rgba(204, 208, 218, .45);
   --input: rgba(239, 241, 245, .7);
   --border: rgba(76, 79, 105, .15);
@@ -78,6 +80,7 @@
     --on-accent: #eff1f5;
     --glass: rgba(239, 241, 245, .55);
     --glass-solid: rgba(239, 241, 245, .92);
+    --solid: #e6e9ef;
     --tile: rgba(204, 208, 218, .45);
     --input: rgba(239, 241, 245, .7);
     --border: rgba(76, 79, 105, .15);
@@ -132,6 +135,13 @@ h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .greeting { font-size: 1rem; font-weight: 600; }
 .greeting span { color: var(--mauve); }
+.top-right { display: flex; align-items: center; gap: 10px; }
+.repo {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; padding: 0; border-radius: 50%;
+  color: var(--text);
+}
+.repo:hover { color: var(--mauve); border-color: var(--mauve); }
 .themes { display: flex; gap: 4px; padding: 4px; }
 .themes button {
   font: inherit; font-size: .8rem; cursor: pointer;
@@ -180,10 +190,17 @@ h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600
 /* Hourly */
 .hourly { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
 .hour {
-  flex: 0 0 auto; min-width: 64px; text-align: center;
+  flex: 0 0 auto; min-width: 72px; text-align: center;
   padding: 10px 8px; border-radius: 12px; background: var(--tile);
-  display: grid; gap: 6px; font-size: .8rem;
+  display: grid; grid-template-rows: 18px 28px 18px 16px 18px; gap: 6px; align-items: center;
+  font-size: .8rem;
 }
+.hour.labels {
+  position: sticky; left: 0; z-index: 1; min-width: 0; text-align: left;
+  background: var(--solid); color: var(--blue); font-size: .7rem; font-weight: 600;
+}
+.hour .hwind { color: var(--teal); font-size: .75rem; white-space: nowrap; }
+.hour .hwind small { color: var(--subtext); font-size: .65rem; }
 .hour .i { font-size: 1.4rem; }
 .hour b { color: var(--peach); }
 .hour .pop { color: var(--sapphire); font-size: .7rem; }
