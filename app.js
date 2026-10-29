@@ -1,4 +1,8 @@
-const DEFAULT = { name: "Boynton Beach, Florida", lat: 26.5318, lon: -80.0905 };
+const DEFAULT = {
+  name: "Boynton Beach, Florida", lat: 26.5318, lon: -80.0905,
+  // Beach card uses Ocean Ridge, the beach on the barrier island east of Boynton
+  beach: { name: "Ocean Ridge", lat: 26.5276, lon: -80.0481 },
+};
 
 // WMO weather codes -> [description, icon]
 const CODES = {
@@ -34,7 +38,9 @@ async function loadWeather(place) {
   const id = ++seq;
   $("place").textContent = name;
   loadAlerts(place, id);
-  loadMarine(place, id);
+  const beach = place.beach ?? place;
+  $("beach-title").textContent = place.beach ? `Beach · ${place.beach.name}` : "Beach";
+  loadMarine(beach, id);
   loadAir(place, id);
   setRadar(place);
   $("desc").textContent = "Loading…";
@@ -58,7 +64,7 @@ async function loadWeather(place) {
     const data = await res.json();
     if (id !== seq) return;
     render(data);
-    loadTides(place, data.timezone, id);
+    loadTides(place.beach ?? place, data.timezone, id);
   } catch (err) {
     if (id === seq) $("desc").textContent = "Couldn't load weather. Try again.";
   }
@@ -158,26 +164,40 @@ async function loadAlerts({ lat, lon }, id) {
   } catch {}
 }
 
-// Open-Meteo marine: waves, swell and water temperature (null when inland)
-async function loadMarine({ lat, lon }, id) {
-  ["waves", "swell", "water"].forEach((k) => ($(k).textContent = "--"));
+// Open-Meteo marine: waves, swell and water temperature. The wave model's grid is
+// ~25 km, so the cell nearest a beach town is often treated as land (no waves).
+// When that happens, try the neighbouring cells and use the first one with data.
+const WAVE_OFFSETS = [[0, 0.25], [0, -0.25], [0.25, 0], [-0.25, 0], [0.25, 0.25], [-0.25, 0.25], [0.25, -0.25], [-0.25, -0.25]];
+async function fetchMarine(lat, lon) {
   const params = new URLSearchParams({
     latitude: lat,
     longitude: lon,
     current: "wave_height,wave_period,swell_wave_height,sea_surface_temperature",
     length_unit: "imperial",
     temperature_unit: "fahrenheit",
-    cell_selection: "sea",
     timezone: "auto",
   });
+  const res = await fetch(`https://marine-api.open-meteo.com/v1/marine?${params}`);
+  if (!res.ok) return null;
+  return (await res.json()).current ?? null;
+}
+
+async function loadMarine({ lat, lon }, id) {
+  ["waves", "swell", "water"].forEach((k) => ($(k).textContent = "--"));
   try {
-    const res = await fetch(`https://marine-api.open-meteo.com/v1/marine?${params}`);
-    if (!res.ok) return;
-    const { current: m } = await res.json();
+    const m = await fetchMarine(lat, lon);
     if (id !== seq || !m) return;
-    if (m.wave_height != null) $("waves").textContent = `${m.wave_height.toFixed(1)} ft · ${Math.round(m.wave_period)}s`;
-    if (m.swell_wave_height != null) $("swell").textContent = `${m.swell_wave_height.toFixed(1)} ft`;
     if (m.sea_surface_temperature != null) $("water").textContent = `${Math.round(m.sea_surface_temperature)}°`;
+
+    let w = m;
+    if (w.wave_height == null) {
+      const nearby = await Promise.all(WAVE_OFFSETS.map(([dLat, dLon]) =>
+        fetchMarine(lat + dLat, lon + dLon).catch(() => null)));
+      w = nearby.find((n) => n?.wave_height != null);
+      if (id !== seq || !w) return;
+    }
+    $("waves").textContent = `${w.wave_height.toFixed(1)} ft · ${Math.round(w.wave_period)}s`;
+    if (w.swell_wave_height != null) $("swell").textContent = `${w.swell_wave_height.toFixed(1)} ft`;
   } catch {}
 }
 
