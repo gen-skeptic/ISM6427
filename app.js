@@ -100,4 +100,14 @@ $("search").addEventListener("submit", async (e) => {
 });
 document.addEventListener("click", (e) => { if (!$("search").contains(e.target)) results.hidden = true; });
 
+// Theme switch: light / dark / system (follows OS setting)
+const themeButtons = document.querySelectorAll("[data-theme-option]");
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeButtons.forEach((b) => b.setAttribute("aria-pressed", b.dataset.themeOption === theme));
+  try { localStorage.setItem("theme", theme); } catch {}
+}
+themeButtons.forEach((b) => b.addEventListener("click", () => setTheme(b.dataset.themeOption)));
+setTheme(document.documentElement.dataset.theme);
+
 loadWeather(DEFAULT);
