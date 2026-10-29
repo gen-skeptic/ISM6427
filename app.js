@@ -324,3 +324,8 @@ themeButtons.forEach((b) => b.addEventListener("click", () => setTheme(b.dataset
 setTheme(document.documentElement.dataset.theme);
 
 loadWeather(DEFAULT);
+
+// Service worker: makes the app installable and keeps last data available offline
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="glow" cx="58%" cy="38%" r="60%">
+      <stop offset="0" stop-color="#cba6f7" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#cba6f7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9e2af"/>
+      <stop offset="1" stop-color="#fab387"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#11111b"/>
+  <rect width="512" height="512" fill="url(#glow)"/>
+  <g transform="translate(256 256) scale(.86) translate(-262 -262)">
+    <!-- Sun: glowing ring with the Dautel D in its dark core -->
+    <g transform="translate(282 212)">
+      <path d="M0-172v-32M0 172v32M-172 0h-32M172 0h32M122-122l22-22M-122 122l-22 22M122 122l22 22M-122-122l-22-22"
+            stroke="#fab387" stroke-width="20" stroke-linecap="round"/>
+      <circle r="150" fill="url(#sun)"/>
+      <circle r="120" fill="#11111b"/>
+      <g transform="translate(-84 -84) scale(1.5)">
+        <path fill="#8bc4ff" fill-rule="evenodd" d="M8 8h64l32 32v56l-8 8H8V8Zm20 20v56h48l8-8V48L64 28H28Z"/>
+        <path d="m38 45 13 11-13 11m20 4h14" fill="none" stroke="#8bc4ff" stroke-width="7" stroke-linecap="square"/>
+        <circle cx="94" cy="94" r="13" fill="#11111b"/>
+        <circle cx="94" cy="94" r="8.5" fill="#8ee5bd"/>
+      </g>
+    </g>
+    <!-- Cloud -->
+    <path transform="translate(24 214) scale(.72)"
+          d="M138 404h244a62 62 0 0 0 6-123.7 92 92 0 0 0-175.5-28.6A76 76 0 0 0 138 404Z"
+          fill="#1e1e2e" stroke="#b4befe" stroke-opacity=".7" stroke-width="11" stroke-linejoin="round"/>
+  </g>
+</svg>

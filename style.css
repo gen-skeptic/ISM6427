@@ -132,21 +132,24 @@ h1 { font-size: 1.4rem; color: var(--mauve); }
 h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600; }
 
 /* Header: greeting + theme switch */
-.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+@media (max-width: 600px) { .top { flex-wrap: wrap; } }
 .greeting { font-size: 1rem; font-weight: 600; }
 .greeting span { color: var(--mauve); }
-.top-right { display: flex; align-items: center; gap: 10px; }
+.top-right { display: flex; align-items: center; gap: 8px; }
 .repo {
   display: flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; padding: 0; border-radius: 50%;
   color: var(--text);
 }
+.brand img { display: block; width: 40px; height: 40px; border-radius: 12px; box-shadow: 0 4px 16px var(--shadow); }
+.brand:hover img { outline: 2px solid var(--mauve); outline-offset: 2px; }
 .repo:hover { color: var(--mauve); border-color: var(--mauve); }
 .themes { display: flex; gap: 4px; padding: 4px; }
 .themes button {
   font: inherit; font-size: .8rem; cursor: pointer;
   color: var(--subtext); background: none; border: none;
-  padding: 6px 12px; border-radius: 12px;
+  padding: 6px 10px; border-radius: 12px;
 }
 .themes button[aria-pressed="true"] { color: var(--on-accent); background: var(--mauve); font-weight: 600; }
 
