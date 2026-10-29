@@ -1,0 +1,125 @@
+/* Catppuccin Mocha */
+:root {
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --crust: #11111b;
+  --surface0: #313244;
+  --surface1: #45475a;
+  --overlay0: #6c7086;
+  --subtext: #a6adc8;
+  --text: #cdd6f4;
+  --mauve: #cba6f7;
+  --blue: #89b4fa;
+  --sapphire: #74c7ec;
+  --teal: #94e2d5;
+  --peach: #fab387;
+  --pink: #f5c2e7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: "JetBrainsMono Nerd Font", "JetBrainsMono NFM", "JetBrainsMono NF", "JetBrains Mono", monospace;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(203, 166, 247, .35), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(137, 180, 250, .30), transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(148, 226, 213, .25), transparent 45%),
+    var(--crust);
+  background-attachment: fixed;
+}
+
+a { color: var(--blue); }
+.muted { color: var(--subtext); }
+
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  display: grid;
+  gap: 20px;
+}
+
+.glass {
+  background: rgba(30, 30, 46, .45);
+  border: 1px solid rgba(205, 214, 244, .12);
+  border-radius: 20px;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(17, 17, 27, .5);
+  padding: 20px;
+}
+
+h1 { font-size: 1.4rem; color: var(--mauve); }
+h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600; }
+
+/* Search */
+.search { position: relative; display: flex; gap: 10px; padding: 10px; z-index: 10; }
+.search input, .search button {
+  font: inherit;
+  color: var(--text);
+  border: 1px solid rgba(205, 214, 244, .12);
+  border-radius: 12px;
+  padding: 10px 14px;
+  background: rgba(49, 50, 68, .5);
+}
+.search input { flex: 1; min-width: 0; outline: none; }
+.search input:focus { border-color: var(--mauve); }
+.search button { cursor: pointer; color: var(--crust); background: var(--mauve); border: none; font-weight: 600; }
+.search button:hover { background: var(--pink); }
+
+.results {
+  position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+  list-style: none; padding: 6px;
+  background: rgba(24, 24, 37, .85);
+}
+.results li { padding: 10px 12px; border-radius: 10px; cursor: pointer; }
+.results li:hover { background: rgba(203, 166, 247, .15); }
+.results li small { color: var(--overlay0); }
+
+/* Current */
+.current { display: grid; gap: 16px; }
+.now { display: flex; align-items: center; gap: 16px; }
+.icon { font-size: 3.5rem; line-height: 1; }
+.temp { font-size: 4rem; font-weight: 800; color: var(--peach); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.stats div {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px; border-radius: 12px; background: rgba(49, 50, 68, .35);
+  font-size: .8rem;
+}
+.stats b { font-size: 1rem; color: var(--teal); }
+
+/* Hourly */
+.hourly { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
+.hour {
+  flex: 0 0 auto; min-width: 64px; text-align: center;
+  padding: 10px 8px; border-radius: 12px; background: rgba(49, 50, 68, .35);
+  display: grid; gap: 6px; font-size: .8rem;
+}
+.hour .i { font-size: 1.4rem; }
+.hour b { color: var(--peach); }
+
+/* Daily */
+.daily { display: grid; gap: 6px; }
+.day {
+  display: grid; grid-template-columns: 70px 32px 1fr auto; align-items: center; gap: 12px;
+  padding: 8px 10px; border-radius: 12px; font-size: .9rem;
+}
+.day:nth-child(odd) { background: rgba(49, 50, 68, .3); }
+.day .i { font-size: 1.3rem; text-align: center; }
+.day .rain { color: var(--sapphire); font-size: .8rem; }
+.day .range b { color: var(--peach); }
+.day .range span { color: var(--overlay0); }
+
+footer { text-align: center; font-size: .75rem; }
+
+::-webkit-scrollbar { height: 6px; }
+::-webkit-scrollbar-thumb { background: var(--surface1); border-radius: 3px; }
+
+@media (max-width: 520px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .temp { font-size: 3rem; }
+  .day { grid-template-columns: 52px 28px 1fr auto; gap: 8px; }
+}

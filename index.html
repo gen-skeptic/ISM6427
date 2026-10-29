@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- JetBrainsMono Nerd Font (webfont), with JetBrains Mono from Google Fonts as fallback -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mshaugh/nerdfont-webfonts@v3.3.0/build/jetbrainsmono-nfm.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <form id="search" class="glass search" autocomplete="off">
+      <input id="query" type="text" placeholder="Search a city…" aria-label="City">
+      <button type="submit">Go</button>
+      <ul id="results" class="glass results" hidden></ul>
+    </form>
+
+    <section class="glass current">
+      <div>
+        <h1 id="place">Boynton Beach, Florida</h1>
+        <p id="desc" class="muted">Loading…</p>
+      </div>
+      <div class="now">
+        <span id="icon" class="icon">·</span>
+        <span id="temp" class="temp">--°</span>
+      </div>
+      <div class="stats">
+        <div><span class="muted">Feels like</span><b id="feels">--</b></div>
+        <div><span class="muted">Humidity</span><b id="humidity">--</b></div>
+        <div><span class="muted">Wind</span><b id="wind">--</b></div>
+        <div><span class="muted">Rain</span><b id="precip">--</b></div>
+      </div>
+    </section>
+
+    <section class="glass">
+      <h2>Next 12 hours</h2>
+      <div id="hourly" class="hourly"></div>
+    </section>
+
+    <section class="glass">
+      <h2>7-day forecast</h2>
+      <div id="daily" class="daily"></div>
+    </section>
+
+    <footer class="muted">Data from <a href="https://open-meteo.com/">Open-Meteo</a></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
