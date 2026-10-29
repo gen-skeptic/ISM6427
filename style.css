@@ -10,6 +10,10 @@
   --sapphire: #74c7ec;
   --teal: #94e2d5;
   --peach: #fab387;
+  --green: #a6e3a1;
+  --yellow: #f9e2af;
+  --red: #f38ba8;
+  --maroon: #eba0ac;
   --pink: #f5c2e7;
   --on-accent: #11111b;
   --glass: rgba(30, 30, 46, .45);
@@ -36,6 +40,10 @@
   --sapphire: #209fb5;
   --teal: #179299;
   --peach: #fe640b;
+  --green: #40a02b;
+  --yellow: #df8e1d;
+  --red: #d20f39;
+  --maroon: #e64553;
   --pink: #ea76cb;
   --on-accent: #eff1f5;
   --glass: rgba(239, 241, 245, .55);
@@ -62,6 +70,10 @@
     --sapphire: #209fb5;
     --teal: #179299;
     --peach: #fe640b;
+    --green: #40a02b;
+    --yellow: #df8e1d;
+    --red: #d20f39;
+    --maroon: #e64553;
     --pink: #ea76cb;
     --on-accent: #eff1f5;
     --glass: rgba(239, 241, 245, .55);
@@ -174,6 +186,9 @@ h2 { font-size: .9rem; color: var(--blue); margin-bottom: 14px; font-weight: 600
 }
 .hour .i { font-size: 1.4rem; }
 .hour b { color: var(--peach); }
+.hour .pop { color: var(--sapphire); font-size: .7rem; }
+.nowcast { margin-top: 6px; font-size: .85rem; color: var(--sapphire); }
+.arrow { display: inline-block; transition: transform .3s; }
 
 /* Daily */
 .daily { display: grid; gap: 6px; }
@@ -196,4 +211,53 @@ footer { text-align: center; font-size: .75rem; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .temp { font-size: 3rem; }
   .day { grid-template-columns: 52px 28px 1fr auto; gap: 8px; }
+}
+
+/* Alerts */
+.alerts { display: grid; gap: 10px; }
+.alert {
+  --sev: var(--yellow);
+  display: grid; gap: 4px; padding: 14px 18px;
+  color: var(--text); text-decoration: none;
+  border-left: 4px solid var(--sev);
+}
+.alert:hover { border-color: var(--sev); }
+.alert b { color: var(--sev); }
+.alert small { color: var(--subtext); }
+.alert.severe { --sev: var(--red); }
+.alert.moderate { --sev: var(--peach); }
+
+/* Beach + Sun & Air cards */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.grid2 div {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px; border-radius: 12px; background: var(--tile); font-size: .8rem;
+}
+.grid2 b { font-size: 1rem; color: var(--teal); }
+.level { font-size: .75rem; font-weight: 600; }
+.lv-0 { color: var(--green); }
+.lv-1 { color: var(--yellow); }
+.lv-2 { color: var(--peach); }
+.lv-3 { color: var(--red); }
+.lv-4 { color: var(--mauve); }
+.lv-5 { color: var(--maroon); }
+.sub { margin: 14px 0 8px; font-size: .8rem; color: var(--blue); }
+.tides { list-style: none; display: grid; gap: 4px; font-size: .85rem; }
+.tides li { display: flex; justify-content: space-between; }
+.tides b { color: var(--sapphire); }
+.note { font-size: .75rem; margin-top: 8px; }
+
+/* Radar embed, framed to match the glass cards */
+.frame {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 0 4px var(--tile);
+}
+.frame iframe { display: block; width: 100%; height: 420px; border: 0; }
+
+@media (max-width: 640px) {
+  .cards { grid-template-columns: minmax(0, 1fr); }
+  .frame iframe { height: 340px; }
 }
